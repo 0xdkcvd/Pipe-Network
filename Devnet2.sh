@@ -74,7 +74,6 @@ WantedBy=multi-user.target
 EOF
 
 echo "Reloading systemd daemon and starting pipe service, (CTRL+ C) to Stop!"
-cd $HOME/pipe-network && \
 sudo systemctl daemon-reload && \
 sudo systemctl enable pipe && \
 sudo systemctl restart pipe && \
