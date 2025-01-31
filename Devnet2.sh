@@ -10,7 +10,7 @@ else
   echo "No process found using port 8003."
 fi
 
-echo "Stopping any DCDND service..."
+echo "Stopping Previous Devnet 1 or any DCDND service..."
 systemctl stop dcdnd && systemctl disable dcdnd
 
 echo "Creating $HOME/pipe-network folder..."
@@ -58,7 +58,8 @@ ExecStart=$HOME/pipe-network/pop \
     --ram=$RAM \
     --pubKey $PUBKEY \
     --max-disk $DISK \
-    --cache-dir $HOME/pipe-network/download_cache
+    --cache-dir $HOME/pipe-network/download_cache \
+    --signup-by-referral-route 6a1a2675666d75ef
 Restart=always
 RestartSec=5
 LimitNOFILE=65536
@@ -72,7 +73,8 @@ WorkingDirectory=$HOME/pipe-network
 WantedBy=multi-user.target
 EOF
 
-echo "Reloading systemd daemon and starting pipe service..."
+echo "Reloading systemd daemon and starting pipe service, (CTRL+ C) to Stop!"
+cd $HOME/pipe-network && \
 sudo systemctl daemon-reload && \
 sudo systemctl enable pipe && \
 sudo systemctl restart pipe && \
